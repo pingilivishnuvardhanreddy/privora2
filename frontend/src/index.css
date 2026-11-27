@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Headings crisp letter-spacing and Space Grotesk typography */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+/* Tabular numbers for counters, stats, and metrics */
+.tabular-nums,
+span[class*="font-mono"],
+div[class*="font-mono"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Section Eyebrow standard */
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #34d399;
+}
+
+/* 24px Dot-grid canvas patterns */
+.bg-dot-grid-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-dot-grid-light {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Multi-Accent Ambient Aurora Meshes (Dark Mode) */
+.bg-aurora-dark {
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(6, 182, 212, 0.13) 0%, transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(99, 102, 241, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 80% 85%, rgba(139, 92, 246, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 20% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 45%);
+}
+
+/* Multi-Accent Ambient Aurora Meshes (Light Mode) */
+.bg-aurora-light {
+  background: 
+    radial-gradient(circle at 12% 12%, rgba(14, 165, 233, 0.09) 0%, transparent 50%),
+    radial-gradient(circle at 88% 18%, rgba(167, 139, 250, 0.09) 0%, transparent 50%),
+    radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.08) 0%, transparent 55%),
+    radial-gradient(circle at 75% 85%, rgba(244, 114, 182, 0.06) 0%, transparent 50%);
+}
+
+/* Top Radial Emerald & Teal Spotlight Glow */
+.bg-emerald-spotlight {
+  background: radial-gradient(circle at 50% -10%, rgba(16, 185, 129, 0.15) 0%, rgba(45, 212, 191, 0.05) 35%, transparent 70%);
+}
+
+/* Orbital Telemetry Rotation Animation */
+@keyframes orbitSpin {
+  0% {
+    transform: rotateX(65deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(65deg) rotateZ(360deg);
+  }
+}
+
+.animate-orbit {
+  animation: orbitSpin 16s linear infinite;
+}
+
+@keyframes orbitSpinReverse {
+  0% {
+    transform: rotateX(75deg) rotateZ(360deg);
+  }
+  100% {
+    transform: rotateX(75deg) rotateZ(0deg);
+  }
+}
+
+.animate-orbit-reverse {
+  animation: orbitSpinReverse 22s linear infinite;
+}
+
+/* Continuous 3D Levitation Animation */
+@keyframes float3d {
+  0%, 100% {
+    transform: translateY(0px) rotateX(4deg);
+  }
+  50% {
+    transform: translateY(-8px) rotateX(-4deg);
+  }
+}
+
+.animate-float3d {
+  animation: float3d 4s ease-in-out infinite;
+}
+
+/* Pulsing Emerald Trust Beacon */
+@keyframes beacon-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.beacon-pulse-emerald {
+  animation: beacon-pulse 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* 3D Extruded Buttons */
+.btn-3d-emerald {
+  background-color: #10b981;
+  color: #05070a;
+  font-weight: 700;
+  box-shadow: 0 4px 0 #047857, 0 10px 20px -3px rgba(16, 185, 129, 0.45);
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-3d-emerald:hover {
+  background-color: #34d399;
+}
+
+.btn-3d-emerald:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #047857, 0 2px 5px -1px rgba(16, 185, 129, 0.35);
+}
+
+.btn-3d-secondary {
+  background: linear-gradient(180deg, #161e2e 0%, #0c1017 100%);
+  color: #f1f5f9;
+  font-weight: 600;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 0 #05070a, 0 6px 14px -2px rgba(0, 0, 0, 0.6);
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-3d-secondary:hover {
+  background: linear-gradient(180deg, #232f46 0%, #111722 100%);
+}
+
+.btn-3d-secondary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #05070a;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.5);
+}
