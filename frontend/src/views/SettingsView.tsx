@@ -68,11 +68,15 @@ export const SettingsView: React.FC = () => {
 
                     <button
                       onClick={() => toggleCategory(cat.id)}
-                      className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                      role="switch"
+                      aria-checked={isEnabled}
+                      aria-label={`Toggle ${cat.name} detection`}
+                      className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-cyan-400 focus:outline-none ${
                         isEnabled ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-800'
                       }`}
                     >
                       <span
+                        aria-hidden="true"
                         className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
                           isEnabled ? 'translate-x-5' : 'translate-x-0'
                         }`}
@@ -144,7 +148,7 @@ export const SettingsView: React.FC = () => {
                 </>
               )}
             </button>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center mt-2 font-mono">
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-2 font-mono">
               Irreversible action • Resets active buffer to 0 bytes
             </p>
           </Card3D>

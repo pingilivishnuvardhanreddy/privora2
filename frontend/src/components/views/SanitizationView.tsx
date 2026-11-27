@@ -360,7 +360,7 @@ export const SanitizationView: React.FC = () => {
                       })
                     ) : (
                       <tr>
-                        <td colSpan={4} className="py-4 text-center text-slate-400 dark:text-slate-500">
+                        <td colSpan={4} className="py-4 text-center text-slate-600 dark:text-slate-400">
                           No sensitive tokens detected in current payload.
                         </td>
                       </tr>

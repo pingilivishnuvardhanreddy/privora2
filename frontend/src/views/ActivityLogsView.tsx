@@ -77,7 +77,7 @@ export const ActivityLogsView: React.FC = () => {
 
           {/* Event Filter Pills */}
           <div className="flex items-center gap-1.5 text-[10px] font-mono">
-            <Filter className="w-3 h-3 text-slate-400 dark:text-slate-500 mr-1" />
+            <Filter className="w-3 h-3 text-slate-500 dark:text-slate-400 mr-1" />
             {['ALL', 'FILE_LOADED', 'SCAN_COMPLETED', 'MEMORY_CLEARED'].map((type) => (
               <button
                 key={type}
@@ -123,7 +123,7 @@ export const ActivityLogsView: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 self-end sm:self-center font-mono text-[10px] text-slate-400 dark:text-slate-500">
+              <div className="flex items-center gap-2 self-end sm:self-center font-mono text-[10px] text-slate-600 dark:text-slate-400">
                 <Clock className="w-3 h-3 text-slate-400 dark:text-slate-600" />
                 <span>{evt.timestamp}</span>
               </div>

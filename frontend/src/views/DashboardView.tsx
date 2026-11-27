@@ -169,10 +169,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
               ref={fileInputRef} 
               onChange={handleFileInputChange} 
               accept=".csv,.txt,.json,.log" 
+              aria-label="Upload document file"
               className="hidden" 
             />
 
             <div
+              role="button"
+              tabIndex={0}
+              aria-label="Upload document dropzone"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  if (!rawText && fileInputRef.current) {
+                    fileInputRef.current.click();
+                  }
+                }
+              }}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
@@ -181,7 +193,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
                   fileInputRef.current.click();
                 }
               }}
-              className={`mt-3.5 rounded-xl p-3.5 sm:p-4 text-center transition-all cursor-pointer border ${
+              className={`mt-3.5 rounded-xl p-3.5 sm:p-4 text-center transition-all cursor-pointer border focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none ${
                 isDragging
                   ? 'border-emerald-500 bg-emerald-500/10 scale-[1.01]'
                   : rawText
@@ -328,7 +340,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
                   <span className={`text-lg font-extrabold font-display tabular-nums ${riskMeta.color}`}>
                     {riskScore}
                   </span>
-                  <span className="text-[8px] uppercase font-bold text-slate-400 dark:text-slate-500 font-mono">
+                  <span className="text-[8px] uppercase font-bold text-slate-600 dark:text-slate-400 font-mono">
                     INDEX / 100
                   </span>
                 </div>
@@ -490,7 +502,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
                         <span className="font-semibold text-slate-800 dark:text-slate-200">
                           {meta.label}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                        <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400">
                           ({cat})
                         </span>
                       </div>
@@ -565,7 +577,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
                     <span className="font-bold text-slate-900 dark:text-slate-100 truncate">
                       {evt.title}
                     </span>
-                    <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 flex items-center gap-1 flex-shrink-0">
+                    <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 flex items-center gap-1 flex-shrink-0">
                       <Clock className="w-3 h-3" />
                       {evt.timestamp}
                     </span>

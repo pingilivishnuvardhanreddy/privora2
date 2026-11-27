@@ -68,13 +68,21 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full transition-colors duration-200 bg-white/85 dark:bg-[#070A10]/90 backdrop-blur-xl border-b border-slate-200/90 dark:border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.6)]">
+    <header role="banner" className="sticky top-0 z-40 w-full transition-colors duration-200 bg-white/85 dark:bg-[#070A10]/90 backdrop-blur-xl border-b border-slate-200/90 dark:border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.6)]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         
         {/* Left: PRIVORA Logo + 3D Isometric Emblem + ZERO-EGRESS ENGINE Pill */}
         <div 
           onClick={() => onTabChange('dashboard')}
-          className="flex items-center gap-3 cursor-pointer group flex-shrink-0"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onTabChange('dashboard');
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="PRIVORA Home Dashboard"
+          className="flex items-center gap-3 cursor-pointer group flex-shrink-0 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none rounded-xl p-1"
         >
           <div className="flex items-center justify-center">
             <IsometricShieldCore size="sm" />
@@ -91,7 +99,11 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
         </div>
 
         {/* Center: 3D Recessed Pill Navigation Dock with Sliding/Active Indicator */}
-        <nav className="flex items-center bg-slate-200/80 dark:bg-[#0C1018]/90 p-1.5 rounded-full border border-slate-300/80 dark:border-white/[0.08] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_2px_8px_rgba(0,0,0,0.85)] overflow-x-auto no-scrollbar">
+        <nav 
+          aria-label="Primary Workspace Navigation" 
+          role="tablist" 
+          className="flex items-center bg-slate-200/80 dark:bg-[#0C1018]/90 p-1.5 rounded-full border border-slate-300/80 dark:border-white/[0.08] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_2px_8px_rgba(0,0,0,0.85)] overflow-x-auto no-scrollbar"
+        >
           <div className="flex items-center gap-1">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -99,8 +111,14 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
               return (
                 <button
                   key={item.id}
+                  id={`tab-${item.id}`}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`panel-${item.id}`}
+                  tabIndex={isActive ? 0 : -1}
+                  aria-label={`${item.label} View`}
                   onClick={() => onTabChange(item.id)}
-                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer select-none whitespace-nowrap ${
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer select-none whitespace-nowrap focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none ${
                     isActive
                       ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold shadow-md -translate-y-[1px] shadow-emerald-500/25 scale-[1.02]'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-300/50 dark:hover:bg-white/[0.06]'
@@ -121,10 +139,12 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
           <button
             onClick={() => setShowInspector(!showInspector)}
             aria-expanded={showInspector}
+            aria-haspopup="dialog"
+            aria-label="Inspect Client-Side Zero-Egress Runtime Telemetry"
             title="Inspect Client-Side Zero-Egress Runtime Telemetry"
             className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer select-none
               bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30 
-              shadow-[0_2px_8px_rgba(16,185,129,0.15)] hover:border-emerald-500/60 active:scale-95"
+              shadow-[0_2px_8px_rgba(16,185,129,0.15)] hover:border-emerald-500/60 active:scale-95 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -139,8 +159,9 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
           {/* Quick RAM Purge Button */}
           <button
             onClick={handleQuickPurge}
+            aria-label={purgeSuccess ? "RAM Cleared" : "Quick Purge Session RAM"}
             title={purgeSuccess ? "RAM Cleared!" : "Quick Purge Session RAM"}
-            className={`p-2 rounded-xl border transition-all duration-150 cursor-pointer flex items-center justify-center ${
+            className={`p-2 rounded-xl border transition-all duration-150 cursor-pointer flex items-center justify-center focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none ${
               purgeSuccess
                 ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.6)]'
                 : 'bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-600 border-slate-200 dark:bg-slate-900/80 dark:hover:bg-red-950/40 dark:text-slate-400 dark:hover:text-red-400 dark:border-white/[0.08] hover:border-red-500/30'
@@ -158,7 +179,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            className="flex items-center justify-center w-9 h-9 rounded-xl border transition-all cursor-pointer
+            className="flex items-center justify-center w-9 h-9 rounded-xl border transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none
               bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700
               dark:bg-slate-900/90 dark:hover:bg-slate-800 dark:border-white/[0.08] dark:text-slate-200"
           >
@@ -173,6 +194,9 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
           {showInspector && (
             <div
               ref={popoverRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Zero-Leak Runtime Telemetry Details"
               className="absolute top-12 right-0 w-80 p-4 rounded-2xl bg-white dark:bg-[#0D111A] border border-slate-200 dark:border-t-white/20 dark:border-x-white/[0.08] dark:border-b-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] z-50 text-xs text-slate-800 dark:text-slate-200 animate-in fade-in zoom-in-95 duration-150"
             >
               <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
@@ -184,7 +208,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
                 </div>
                 <button
                   onClick={() => setShowInspector(false)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-md"
+                  aria-label="Close Telemetry Inspector"
+                  className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-md focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>

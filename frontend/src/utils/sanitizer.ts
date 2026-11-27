@@ -181,7 +181,13 @@ export interface SanitizationResult {
 
 /**
  * Sanitize document text using detected disjoint matches
- * Preserves text outside matches strictly byte-for-byte
+ * Preserves text outside matches strictly byte-for-byte.
+ *
+ * @param text - Raw source string
+ * @param matches - Array of disjoint PIIMatch spans
+ * @param mode - RedactionMode ('FULL' | 'PARTIAL' | 'PSEUDONYM')
+ * @param externalVault - Optional shared PseudonymVault instance
+ * @returns SanitizationResult containing sanitized text, replacement log, and active vault
  */
 export function sanitizeText(
   text: string,

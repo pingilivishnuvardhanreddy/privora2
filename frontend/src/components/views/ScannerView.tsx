@@ -122,7 +122,7 @@ export const ScannerView: React.FC = () => {
             <span className="text-slate-600 dark:text-slate-400 text-[10px] leading-tight">
               {m.details}
             </span>
-            <span className="text-slate-400 dark:text-slate-500 text-[9px] font-mono border-t border-slate-200 dark:border-slate-800 pt-1 mt-0.5">
+            <span className="text-slate-600 dark:text-slate-400 text-[9px] font-mono border-t border-slate-200 dark:border-slate-800 pt-1 mt-0.5">
               Position: [{m.start}:{m.end}]
             </span>
           </span>
@@ -152,6 +152,7 @@ export const ScannerView: React.FC = () => {
         type="file"
         accept=".txt,.csv,.log,.json"
         onChange={handleFileInputChange}
+        aria-label="Upload document file"
         className="hidden"
       />
 
@@ -250,7 +251,8 @@ export const ScannerView: React.FC = () => {
               value={rawText}
               onChange={(e) => setDocumentText(e.target.value)}
               placeholder="Paste raw text, logs, CSV content, or drop a .txt/.csv file here..."
-              className="w-full h-full bg-transparent font-mono text-xs text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none resize-none leading-relaxed"
+              aria-label="Raw text payload editor"
+              className="w-full h-full bg-transparent font-mono text-xs text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400 resize-none leading-relaxed rounded-lg"
             />
           </div>
 
@@ -315,7 +317,7 @@ export const ScannerView: React.FC = () => {
                   }`}
                 >
                   <span>{cat}</span>
-                  <span className="text-[9px] opacity-80">({count})</span>
+                  <span className="text-[9px] font-semibold text-slate-700 dark:text-slate-300">({count})</span>
                 </button>
               );
             })}
@@ -335,18 +337,24 @@ export const ScannerView: React.FC = () => {
           )}
 
           {/* Sunken 3D Well: Safe Highlighted Document View */}
-          <div className="flex-1 bg-slate-50 dark:bg-[#070A10] border border-slate-200 dark:border-white/[0.08] shadow-[inset_0_2px_8px_rgba(15,23,42,0.06)] dark:shadow-[inset_0_3px_12px_rgba(0,0,0,0.85)] rounded-xl p-4 overflow-auto leading-relaxed">
+          <div 
+            role="region" 
+            aria-label="Highlighted PII Preview" 
+            aria-live="polite" 
+            aria-atomic="true"
+            className="flex-1 bg-slate-50 dark:bg-[#070A10] border border-slate-200 dark:border-white/[0.08] shadow-[inset_0_2px_8px_rgba(15,23,42,0.06)] dark:shadow-[inset_0_3px_12px_rgba(0,0,0,0.85)] rounded-xl p-4 overflow-auto leading-relaxed"
+          >
             {rawText ? (
               <div className="whitespace-pre-wrap font-mono text-xs select-text">
                 {renderSafeHighlightedText()}
               </div>
             ) : (
-              <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400 dark:text-slate-500">
-                <RefreshCw className="w-8 h-8 text-slate-400 dark:text-slate-600 mb-2 animate-spin-slow" />
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300 font-display">
+              <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-600 dark:text-slate-400">
+                <RefreshCw className="w-8 h-8 text-slate-500 dark:text-slate-400 mb-2 animate-spin-slow" />
+                <p className="text-xs font-bold text-slate-800 dark:text-slate-200 font-display">
                   Awaiting Payload Input
                 </p>
-                <p className="text-[11px] text-slate-500 dark:text-slate-500 max-w-xs mt-1">
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 max-w-xs mt-1">
                   Type on the left or click 'Load Sample TXT' or 'Load Sample CSV' to trigger instant disjoint token inspection.
                 </p>
               </div>

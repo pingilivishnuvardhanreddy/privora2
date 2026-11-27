@@ -46,6 +46,11 @@ export function isValidLuhn(raw: string): boolean {
 }
 
 /**
+ * Functional alias for isValidLuhn
+ */
+export const luhnCheck = isValidLuhn;
+
+/**
  * Indian Income Tax Permanent Account Number (PAN) Validator
  * - Format: 5 letters + 4 digits + 1 letter (e.g. ABCDE1234F, XYZPK9821L)
  * - Case-insensitive match on [A-Z]{5}[0-9]{4}[A-Z]

@@ -305,3 +305,40 @@ export function scanTextForPII(text: string, options?: ScanOptions): EngineResul
     executionTimeMs,
   };
 }
+
+/**
+ * Standard category weights according to DPDP, GDPR, HIPAA, and PCI-DSS standards.
+ */
+export const CATEGORY_WEIGHTS: Record<PIICategory, number> = {
+  CREDIT_CARD: 25,
+  AADHAAR: 25,
+  PAN: 20,
+  EMAIL: 10,
+  PHONE: 10,
+  IPV4: 8,
+};
+
+/**
+ * Deterministic Risk Score Calculator
+ * Computes raw weighted exposure and normalized asymptotic risk index (0–100).
+ * Formula: score = min(100, round(100 * (1 - e^(-raw / 120))))
+ *
+ * @param counts - Map of detected entities per category
+ * @returns Object containing rawExposure points and normalized riskScore (0–100)
+ */
+export function calculateRiskScore(counts: Record<PIICategory, number>): { rawExposure: number; riskScore: number } {
+  const rawExposure = (Object.keys(CATEGORY_WEIGHTS) as PIICategory[]).reduce((acc, cat) => {
+    return acc + (counts[cat] || 0) * CATEGORY_WEIGHTS[cat];
+  }, 0);
+
+  const riskScore = rawExposure === 0 
+    ? 0 
+    : Math.min(100, Math.round(100 * (1 - Math.exp(-rawExposure / 120))));
+
+  return { rawExposure, riskScore };
+}
+
+/**
+ * Convenience alias for scanTextForPII
+ */
+export const detectPII = scanTextForPII;

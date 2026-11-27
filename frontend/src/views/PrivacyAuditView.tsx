@@ -209,7 +209,7 @@ export const PrivacyAuditView: React.FC = () => {
                       {weight} pts
                     </td>
                     <td className="py-2.5 px-4 text-center tabular-nums font-bold">
-                      <span className={count > 0 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-400 dark:text-slate-500'}>
+                      <span className={count > 0 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-600 dark:text-slate-400'}>
                         {count}
                       </span>
                     </td>
@@ -226,7 +226,7 @@ export const PrivacyAuditView: React.FC = () => {
 
       {/* 4. Statutory Disclaimer Callout */}
       <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/80 flex items-start gap-3 text-xs text-slate-600 dark:text-slate-400 shadow-sm">
-        <Info className="w-5 h-5 text-slate-400 dark:text-slate-500 flex-shrink-0 mt-0.5" />
+        <Info className="w-5 h-5 text-slate-500 dark:text-slate-400 flex-shrink-0 mt-0.5" />
         <div className="leading-relaxed">
           <span className="font-bold text-slate-900 dark:text-slate-200">Algorithm Transparency & Statutory Disclosure:</span>{' '}
           This Privacy Risk Index is a client-side heuristic exposure metric calculated deterministically from in-memory token matches. It represents relative exposure severity to assist data controllers in zero-egress audits and is not a formal legal opinion or UIDAI certification.
